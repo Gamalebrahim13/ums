@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null);
-  const [isDark, setIsDark] = useState(true); // 💡 Dark mode toggle
+  const [isDark, setIsDark] = useState(false); // 💡 Dark mode toggle
 
   useEffect(() => {
     axios.get('https://dummyjson.com/users/1').then((res) => setUser(res.data));

@@ -7,7 +7,7 @@ import { FaUsers, FaUserPlus, FaChartBar } from 'react-icons/fa';
 export default function Home() {
   const { user } = useAuth();
   const [userCount, setUserCount] = useState<number>(0);
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     axios

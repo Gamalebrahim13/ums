@@ -1,0 +1,29 @@
+/* Light mode */
+.light-mode {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Dark mode */
+.dark-mode {
+  /* background-color: #121212;git add .
+ */
+  color: #ffffff;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 850px;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  background-color: inherit;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    padding: 1.25rem;
+    box-shadow: none;
+    border-radius: 0;
+  }
+}

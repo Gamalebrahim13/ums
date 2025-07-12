@@ -1,9 +1,10 @@
-// src/components/Userdata/Usersdata.tsx
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import './UserData.css';
 
 type UserFormData = {
   firstName: string;
@@ -29,7 +30,7 @@ export default function Usersdata() {
 
   function formatDateForInput(dateString: string) {
     const date = new Date(dateString);
-    return date.toISOString().split('T')[0]; // yyyy-mm-dd
+    return date.toISOString().split('T')[0];
   }
 
   useEffect(() => {
@@ -64,84 +65,44 @@ export default function Usersdata() {
   };
 
   return (
-    <div
-      className={`container-fluid py-5 min-vh-100 d-flex justify-content-center align-items-start ${
-        isDark ? 'bg-dark text-white' : 'bg-light text-dark light-mode'
-      }`}
-    >
-      <div
-        className="w-100 p-4 rounded shadow"
-        style={{
-          maxWidth: '850px',
-          backgroundColor: isDark ? '#1f1f1f' : '#fff',
-        }}
-      >
-        {/* <div className="d-flex justify-content-between align-items-center mb-3">
-          <h4 className="fw-bold">
-            {isEditMode ? 'Update User' : 'Add New User'}
-          </h4>
-          <button
-            className={`btn btn-sm ${isDark ? 'btn-light' : 'btn-dark'}`}
-            onClick={() => setIsDark(!isDark)}
-          >
-            {isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
-          </button>
-        </div> */}
+    <div className={`container-fluid py-5 min-vh-100 d-flex justify-content-center align-items-start ${isDark ? 'dark-mode' : 'light-mode'}`}>
+      <div className="form-container">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h4 className="fw-bold">{isEditMode ? 'Update User' : 'Add New User'}</h4>
+        </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {[
+              { name: 'firstName', placeholder: 'First Name', rules: { required: 'First name is required' } },
+              { name: 'lastName', placeholder: 'Last Name', rules: { required: 'Last name is required' } },
               {
-                name: 'firstName',
-                placeholder: 'First Name',
-                rules: { required: 'First name is required' },
-              },
-              {
-                name: 'lastName',
-                placeholder: 'Last Name',
-                rules: { required: 'Last name is required' },
-              },
-              {
-                name: 'email',
-                placeholder: 'Email',
-                rules: {
+                name: 'email', placeholder: 'Email', rules: {
                   required: 'Email is required',
-                  pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email format' },
-                },
+                  pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email format' }
+                }
               },
               {
-                name: 'phone',
-                placeholder: 'Phone',
-                rules: {
+                name: 'phone', placeholder: 'Phone', rules: {
                   required: 'Phone is required',
                   pattern: {
                     value: /^\+?[0-9\s\-]{10,20}$/,
-                    message: 'Invalid phone number',
-                  },
-                },
+                    message: 'Invalid phone number'
+                  }
+                }
               },
               {
-                name: 'age',
-                placeholder: 'Age',
-                type: 'number',
-                rules: {
+                name: 'age', placeholder: 'Age', type: 'number', rules: {
                   required: 'Age is required',
-                  min: { value: 1, message: 'Minimum age is 1' },
-                },
+                  min: { value: 1, message: 'Minimum age is 1' }
+                }
               },
-              {
-                name: 'birthDate',
-                placeholder: 'Birth Date',
-                type: 'date',
-                rules: { required: 'Birth date is required' },
-              },
+              { name: 'birthDate', placeholder: 'Birth Date', type: 'date', rules: { required: 'Birth date is required' } },
             ].map((field, i) => (
-              <div className="col-md-6 mb-3" key={i}>
+              <div className="col-12 col-md-6 mb-3" key={i}>
                 <input
                   type={field.type || 'text'}
-                  className={`form-control custom-placeholder ${
-                    isDark ? 'bg-dark text-white border-secondary' : ''
-                  }`}
+                  className="form-control"
                   placeholder={field.placeholder}
                   {...register(field.name as keyof UserFormData, field.rules)}
                 />

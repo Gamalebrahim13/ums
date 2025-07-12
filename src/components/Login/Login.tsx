@@ -1,4 +1,3 @@
-// src/components/Login/Login.tsx
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import './Login.css';
@@ -12,28 +11,29 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting }
+    formState: { isSubmitting, errors },
   } = useForm<FormData>();
 
- const onSubmit = async (data: FormData) => {
-  try {
-    const res = await axios.post('https://dummyjson.com/auth/login', data);
-    const userRes = await axios.get(`https://dummyjson.com/users/${res.data.id}`);
+  const onSubmit = async (data: FormData) => {
+    try {
+      const res = await axios.post('https://dummyjson.com/auth/login', data);
+      const userRes = await axios.get(`https://dummyjson.com/users/${res.data.id}`);
 
-    localStorage.setItem('token', res.data.token); // optional
-    localStorage.setItem('user', JSON.stringify(userRes.data));
+      localStorage.setItem('token', res.data.token); // optional
+      localStorage.setItem('user', JSON.stringify(userRes.data));
 
-    window.location.href = '/dashboard'; // redirect
-  } catch {
-    // handle error
-  }
-};
+      window.location.href = '/dashboard'; // redirect
+    } catch {
+      alert("Login failed. Please check credentials.");
+    }
+  };
 
   return (
     <div className="login-bg d-flex align-items-center justify-content-center vh-100">
       <div className="card p-4 shadow" style={{ width: '400px' }}>
         <h3 className="text-center fw-bold">User Management System</h3>
         <p className="text-center text-muted mb-4">SIGN IN</p>
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
             <input
@@ -42,6 +42,9 @@ export default function Login() {
               placeholder="Username"
               {...register('username', { required: 'Username is required' })}
             />
+            {errors.username && (
+              <small className="text-danger">{errors.username.message}</small>
+            )}
           </div>
 
           <div className="mb-4">
@@ -51,6 +54,9 @@ export default function Login() {
               placeholder="Password"
               {...register('password', { required: 'Password is required' })}
             />
+            {errors.password && (
+              <small className="text-danger">{errors.password.message}</small>
+            )}
           </div>
 
           <button
