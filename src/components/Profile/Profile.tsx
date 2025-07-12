@@ -1,5 +1,5 @@
 // src/components/Profile/Profile.tsx
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function Profile() {

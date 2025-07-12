@@ -1,5 +1,5 @@
 // src/components/Userdata/Usersdata.tsx
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -18,7 +18,7 @@ export default function Usersdata() {
   const { id } = useParams();
   const isEditMode = Boolean(id);
   const navigate = useNavigate();
-  const [isDark, setIsDark] = useState(true);
+  const [isDark] = useState(true);
 
   const {
     register,
